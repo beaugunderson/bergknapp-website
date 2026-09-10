@@ -28,7 +28,9 @@ async page => {
           const el = document.querySelector(selector);
           return el.getBoundingClientRect().height < parseFloat(getComputedStyle(el).lineHeight) * 1.1;
         }),
-        apps: [...document.querySelectorAll('.app')].map(a => a.href),
+        apps: [...document.querySelectorAll('a.app')].map(a => a.href),
+        upcoming: [...document.querySelectorAll('article.upcoming')].map(card => ({name:card.querySelector('h2').textContent,comingSoon:card.textContent.includes('Coming soon'),nonInteractive:!card.querySelector('a,button,input')})),
+        appCount: document.querySelectorAll('.app').length,
         missingSymbols: [...document.querySelectorAll('use')].filter(u => !document.querySelector(u.getAttribute('href'))).length,
         clippedPreviews: [...document.querySelectorAll('.app-visual img')].filter(img => {
           const i = img.getBoundingClientRect(), p = img.closest('.app-visual').getBoundingClientRect();
@@ -36,7 +38,7 @@ async page => {
           return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
         }).map(img => img.src),
       }));
-      if (layout.overflow || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3) throw new Error(JSON.stringify({theme,width,layout}));
+      if (layout.overflow || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3 || layout.appCount !== 5 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
       results.push({theme,width,layout:'pass'});
       if ([390,1280].includes(width)) {
         const audit = await page.evaluate(async () => {

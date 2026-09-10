@@ -1,6 +1,6 @@
 # bergknapp.works
 
-The Bergknapp Softworks site: one static page linking out to each app's own site (Knap, Spacebar, Tuck). No build step; Netlify publishes the repo root.
+The Bergknapp Softworks site: one static page linking to Knap, Spacebar, and Tuck, with coming-soon entries for Galdra and Narrowcast. No build step; Netlify publishes the repo root.
 
 - `index.html` — the page, styles inline. The rosette mark is an inline SVG `<symbol>` so it picks up the light/dark palette.
 - `favicon.svg` — the same mark with a `prefers-color-scheme` palette swap. Generated from the page by `scripts/sync-logo.py`. `icon-*.png`, `apple-touch-icon.png`, and `favicon.png` are light-palette rasters of it.
@@ -33,7 +33,11 @@ Keep browser screenshots and exploration pages outside the publish root.
 - **Knap:** real app captures from `../knap-website/app-dark.png` and `app-dark-narrow.png`, resized to 1440px and 900px wide. Keep the narrow capture for phones.
 - **Spacebar:** a capture of the archive demo’s `.panel` in `../spacebar-website/index.html`, rendered in light mode at 2×. This is website demo artwork, not a native application screenshot; the visible caption says so.
 - **Tuck:** a capture of the illustrated `.desktop` demo in `../tuck/site/`, with the tray open. Captured at 720×311 CSS pixels, 2×, with the theme picker hidden. This is also explicitly labeled as a demo.
-- App icons come from the corresponding sites. Don’t draw substitute interfaces or expose personal app data in screenshots.
+- **Galdra:** an actual iPad simulator session capture from `../singing-bowls/`, launched with `--autoplay 7`. The crop retains the whole circular room view while removing status chrome and excess black margins (1668×2420 source, crop `100,350,1568,1818`, resized to 900×900). This is not a reconstructed interface. Its app icon comes from the iOS asset catalog.
+- **Narrowcast:** app icon from `../podcast-roulette/ios/Narrowcast/Assets.xcassets/`. The coming-soon card describes the taste-based podcast station and offline playback; no download or signup is available here yet.
+- App icons come from the corresponding sites or app asset catalogs. Don’t draw substitute interfaces or expose personal app data in screenshots.
+
+Galdra capture gotcha: the first Motion & Fitness alert can remain visible after `simctl privacy ... grant motion`. A simulator restart clears that stale alert; then `--autoplay 7` reaches the room view. `-onboarded YES` alone did not bypass the initial screen in the available build. Restore motion permission to its initial prompt state, clear any status-bar overrides, and shut down a simulator you booted just for the capture.
 
 ## Check the page
 

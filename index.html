@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#13221c" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1914" media="(prefers-color-scheme: dark)">
 <title>Bergknapp Softworks — Small, fast software for the Mac</title>
-<meta name="description" content="Small, fast, offline tools for the Mac, made by Beau Gunderson. Knap for your notes, Spacebar for Quick Look, and Tuck for your menu bar.">
+<meta name="description" content="Small, fast tools made by Beau Gunderson: Knap, Spacebar, Tuck, and the upcoming Galdra and Narrowcast.">
 <link rel="canonical" href="https://bergknapp.works/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=blue-spruce-1">
 <link rel="icon" type="image/png" sizes="256x256" href="/icon-256.png?v=blue-spruce-1">
@@ -76,7 +76,7 @@ h1 { margin: 0; font-size: clamp(38px, 4.5vw, 56px); font-weight: 600; line-heig
 .apps { scroll-margin-top: 24px; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .app { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); color: var(--ink); text-decoration: none; transition: border-color 150ms ease, box-shadow 150ms ease; }
-.app:hover { color: var(--ink); border-color: var(--middle-a); box-shadow: 0 6px 22px #183b2810; }
+a.app:hover { color: var(--ink); border-color: var(--middle-a); box-shadow: 0 6px 22px #183b2810; }
 .app:focus-visible { border-radius: 18px; }
 .app-info { padding: 30px 32px 28px; display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
 .app-heading { display: flex; align-items: center; gap: 12px; }
@@ -88,8 +88,8 @@ h1 { margin: 0; font-size: clamp(38px, 4.5vw, 56px); font-weight: 600; line-heig
 .app-meta { margin: 19px 0 0; font-size: 11px; color: var(--muted); }
 .visit { display: flex; align-items: center; gap: 8px; margin-top: 22px; font-size: 13px; font-weight: 600; color: var(--accent); }
 .visit svg { width: 14px; height: 14px; transition: transform 150ms ease; }
-.app:hover .visit svg { transform: translate(2px, -2px); }
-.app:hover .visit span { text-decoration: underline; text-underline-offset: 4px; }
+a.app:hover .visit svg { transform: translate(2px, -2px); }
+a.app:hover .visit span { text-decoration: underline; text-underline-offset: 4px; }
 .app-visual { margin: 0; position: relative; height: 272px; overflow: hidden; }
 .app-visual figcaption { position: absolute; bottom: 12px; right: 16px; font-size: 10px; color: var(--ink); }
 .knap { grid-column: 1 / -1; display: grid; grid-template-columns: .85fr 1.3fr; }
@@ -104,6 +104,15 @@ h1 { margin: 0; font-size: clamp(38px, 4.5vw, 56px); font-weight: 600; line-heig
 .spacebar .app-visual img { width: auto; height: auto; max-height: 100%; border-radius: 9px; box-shadow: 0 8px 16px #142e2414; }
 .tuck .app-visual { background: var(--tuck-stage); padding: 25px 27px 34px; display: flex; align-items: center; justify-content: center; }
 .tuck .app-visual img { width: auto; height: auto; max-height: 100%; border-radius: 9px; box-shadow: 0 8px 16px #142e2414; }
+.upcoming { grid-column: 1 / -1; }
+.upcoming .app-heading img { border-radius: 10px; }
+.upcoming .app-meta { color: var(--accent); font-size: 12px; }
+.galdra { display: grid; grid-template-columns: minmax(0, 1fr) 360px; align-items: stretch; }
+.galdra .app-info { justify-content: center; padding: 36px; }
+.galdra .app-visual { height: 320px; background: #000000; display: flex; align-items: center; justify-content: center; padding: 18px; }
+.galdra .app-visual img { width: auto; height: 100%; max-height: 100%; object-fit: contain; }
+.narrowcast .app-info { padding: 30px 36px; }
+.narrowcast .app-description { max-width: 760px; }
 .about { margin: 64px 0 0; padding: 40px 0 46px; border-top: 1px solid var(--line); }
 .about-copy p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.75; max-width: 760px; }
 .about-copy strong { color: var(--ink); font-weight: 550; }
@@ -138,12 +147,15 @@ footer a:hover { text-decoration: underline; }
   .knap picture { padding: 10px 18px 18px; max-width: 390px; }
   .app-visual { height: auto; min-height: 210px; }
   .spacebar .app-visual, .tuck .app-visual { padding: 26px 24px 36px; }
+  .galdra { display: flex; }
+  .galdra .app-info, .narrowcast .app-info { padding: 26px; }
+  .galdra .app-visual { height: 300px; min-height: 0; }
   .about { margin-top: 42px; padding: 32px 0; }
   footer { align-items: flex-start; flex-direction: column; gap: 14px; padding-bottom: 30px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .app, .visit svg { transition: none; }
-  .app:hover .visit svg { transform: none; }
+  a.app:hover .visit svg { transform: none; }
 }
 </style>
 </head>
@@ -231,6 +243,24 @@ footer a:hover { text-decoration: underline; }
             <figcaption>Menu bar demo</figcaption>
           </figure>
         </a>
+        <article class="app upcoming galdra" aria-labelledby="galdra-name">
+          <div class="app-info">
+            <div class="app-heading"><img src="/assets/galdra-icon.png" width="44" height="44" alt="" loading="lazy"><h2 id="galdra-name">Galdra</h2></div>
+            <p class="app-line">A sound bath, synthesized as you listen.</p>
+            <p class="app-description">Singing bowls, gongs, and weather, generated live in a spatial room. Nothing looped or recorded.</p>
+            <p class="app-meta">Coming soon · Mac, iPhone, iPad &amp; Apple TV</p>
+          </div>
+          <figure class="app-visual">
+            <img src="/assets/galdra-session.webp" width="900" height="900" alt="Galdra’s live sound-bath view: singing bowls positioned around the listener on concentric distance rings." loading="lazy" decoding="async">
+          </figure>
+        </article>
+        <article class="app upcoming narrowcast" aria-labelledby="narrowcast-name">
+          <div class="app-info">
+            <div class="app-heading"><img src="/assets/narrowcast-icon.png" width="44" height="44" alt="" loading="lazy"><h2 id="narrowcast-name">Narrowcast</h2></div>
+            <p class="app-description">A personal podcast station built around your taste, with a queue ready for your next drive — even offline.</p>
+            <p class="app-meta">Coming soon · iPhone</p>
+          </div>
+        </article>
       </div>
     </section>
     <section class="about" id="about" aria-label="About the name">
