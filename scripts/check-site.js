@@ -11,6 +11,7 @@ async page => {
         removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
         noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
         noTopNavigation: !document.querySelector('.masthead nav'),
+        explanationOnly: !/why bergknapp|BÆRG-knahp|k pronounced|say it however/i.test(text) && document.querySelector('.about-copy').textContent.includes('Bergknapp is Norwegian for stonecrop'),
         oneNameLink: personal.length === 1 && personal[0].textContent === 'Beau Gunderson' && (text.match(/Beau Gunderson/g) || []).length === 1,
         darkBackground: getComputedStyle(document.body).backgroundColor.split(/[^\d]+/).filter(Boolean).slice(0,3).every(v => Number(v) < 50),
       };
@@ -23,6 +24,10 @@ async page => {
       await page.waitForFunction(() => [...document.images].every(img => img.complete && img.naturalWidth > 0));
       const layout = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth > innerWidth,
+        heroFitsDesktop: innerWidth < 1280 || ['#headline','.intro'].every(selector => {
+          const el = document.querySelector(selector);
+          return el.getBoundingClientRect().height < parseFloat(getComputedStyle(el).lineHeight) * 1.1;
+        }),
         apps: [...document.querySelectorAll('.app')].map(a => a.href),
         missingSymbols: [...document.querySelectorAll('use')].filter(u => !document.querySelector(u.getAttribute('href'))).length,
         clippedPreviews: [...document.querySelectorAll('.app-visual img')].filter(img => {
@@ -31,7 +36,7 @@ async page => {
           return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
         }).map(img => img.src),
       }));
-      if (layout.overflow || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3) throw new Error(JSON.stringify({theme,width,layout}));
+      if (layout.overflow || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3) throw new Error(JSON.stringify({theme,width,layout}));
       results.push({theme,width,layout:'pass'});
       if ([390,1280].includes(width)) {
         const audit = await page.evaluate(async () => {
