@@ -24,8 +24,11 @@
   --panel: #ffffff;
   --panel-border: rgba(0, 0, 0, 0.10);
   --accent: #0071e3;
-  --leaf: #4f7d5a;
-  --rock: #8e8e93;
+  --outer-a: #2d5149;
+  --outer-b: #3c6256;
+  --middle-a: #74a594;
+  --middle-b: #8bb6a0;
+  --heart: #c3dbb2;
   --shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 @media (prefers-color-scheme: dark) {
@@ -38,8 +41,11 @@
     --panel: #1d1d1f;
     --panel-border: rgba(255, 255, 255, 0.14);
     --accent: #2997ff;
-    --leaf: #7fb08a;
-    --rock: #6e6e73;
+    --outer-a: #406e60;
+    --outer-b: #50816e;
+    --middle-a: #94c4ac;
+    --middle-b: #a9d0b8;
+    --heart: #dbe8c3;
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   }
 }
@@ -139,18 +145,23 @@ footer .row { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <!-- a stonecrop rosette in profile, sitting on its rock -->
+    <!-- top-down stonecrop, Blue spruce palette: one brightness range per ring -->
     <symbol id="rosette" viewBox="0 0 120 120">
-      <path fill="var(--rock)" d="M10 110C18 94 38 90 60 91C82 90 102 94 110 110Z"/>
-      <g fill="var(--leaf)" stroke="var(--paper)" stroke-width="1.6" stroke-linejoin="round">
-        <path transform="translate(60 90) rotate(-8)" d="M0 0C9 -9.5 27 -9.5 36 0C27 9.5 9 9.5 0 0Z"/>
-        <path transform="translate(60 90) rotate(-172)" d="M0 0C9 -9.5 27 -9.5 36 0C27 9.5 9 9.5 0 0Z"/>
-        <path transform="translate(60 88) rotate(-34)" d="M0 0C8 -9 24 -9 32 0C24 9 8 9 0 0Z"/>
-        <path transform="translate(60 88) rotate(-146)" d="M0 0C8 -9 24 -9 32 0C24 9 8 9 0 0Z"/>
-        <path transform="translate(60 86) rotate(-60)" d="M0 0C7 -8.5 21 -8.5 28 0C21 8.5 7 8.5 0 0Z"/>
-        <path transform="translate(60 86) rotate(-120)" d="M0 0C7 -8.5 21 -8.5 28 0C21 8.5 7 8.5 0 0Z"/>
-        <path transform="translate(60 84) rotate(-90)" d="M0 0C6 -8 17 -8 23 0C17 8 6 8 0 0Z"/>
-      </g>
+      <path fill="var(--outer-a)" transform="translate(60 60) rotate(0)" d="M0 4 C-17 -5 -17 -37 0 -47 C17 -37 17 -5 0 4Z"/>
+      <path fill="var(--outer-b)" transform="translate(60 60) rotate(60)" d="M0 4 C-17 -5 -17 -34 0 -44 C17 -34 17 -5 0 4Z"/>
+      <path fill="var(--outer-a)" transform="translate(60 60) rotate(120)" d="M0 4 C-17 -5 -17 -37 0 -47 C17 -37 17 -5 0 4Z"/>
+      <path fill="var(--outer-b)" transform="translate(60 60) rotate(180)" d="M0 4 C-17 -5 -17 -34 0 -44 C17 -34 17 -5 0 4Z"/>
+      <path fill="var(--outer-a)" transform="translate(60 60) rotate(240)" d="M0 4 C-17 -5 -17 -37 0 -47 C17 -37 17 -5 0 4Z"/>
+      <path fill="var(--outer-b)" transform="translate(60 60) rotate(300)" d="M0 4 C-17 -5 -17 -34 0 -44 C17 -34 17 -5 0 4Z"/>
+      <path fill="var(--middle-a)" transform="translate(60 60) rotate(30)" d="M0 4 C-13 -5 -13 -23 0 -33 C13 -23 13 -5 0 4Z"/>
+      <path fill="var(--middle-b)" transform="translate(60 60) rotate(90)" d="M0 4 C-13 -5 -13 -23 0 -33 C13 -23 13 -5 0 4Z"/>
+      <path fill="var(--middle-a)" transform="translate(60 60) rotate(150)" d="M0 4 C-13 -5 -13 -23 0 -33 C13 -23 13 -5 0 4Z"/>
+      <path fill="var(--middle-b)" transform="translate(60 60) rotate(210)" d="M0 4 C-13 -5 -13 -23 0 -33 C13 -23 13 -5 0 4Z"/>
+      <path fill="var(--middle-a)" transform="translate(60 60) rotate(270)" d="M0 4 C-13 -5 -13 -23 0 -33 C13 -23 13 -5 0 4Z"/>
+      <path fill="var(--middle-b)" transform="translate(60 60) rotate(330)" d="M0 4 C-13 -5 -13 -23 0 -33 C13 -23 13 -5 0 4Z"/>
+      <path fill="var(--heart)" transform="translate(60 60) rotate(0)" d="M0 4 C-8 -5 -8 -9 0 -19 C8 -9 8 -5 0 4Z"/>
+      <path fill="var(--heart)" transform="translate(60 60) rotate(120)" d="M0 4 C-8 -5 -8 -9 0 -19 C8 -9 8 -5 0 4Z"/>
+      <path fill="var(--heart)" transform="translate(60 60) rotate(240)" d="M0 4 C-8 -5 -8 -9 0 -19 C8 -9 8 -5 0 4Z"/>
     </symbol>
   </defs>
 </svg>
@@ -162,7 +173,7 @@ footer .row { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
 </nav>
 
 <header class="wrap">
-  <svg class="mark" role="img" aria-label="A stonecrop rosette growing on a rock"><use href="#rosette"/></svg>
+  <svg class="mark" role="img" aria-label="A blue-green stonecrop rosette seen from above"><use href="#rosette"/></svg>
   <h1>Small, fast software for the Mac.</h1>
   <p class="lede">Each of these started as something that bothered me on my own Mac. They are native, offline, and quick, and they leave your files exactly where they were.</p>
 </header>
