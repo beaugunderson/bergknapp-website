@@ -10,6 +10,7 @@ async page => {
       return {
         removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
         noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
+        noTopNavigation: !document.querySelector('.masthead nav'),
         oneNameLink: personal.length === 1 && personal[0].textContent === 'Beau Gunderson' && (text.match(/Beau Gunderson/g) || []).length === 1,
         darkBackground: getComputedStyle(document.body).backgroundColor.split(/[^\d]+/).filter(Boolean).slice(0,3).every(v => Number(v) < 50),
       };
