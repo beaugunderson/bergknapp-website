@@ -1,0 +1,45 @@
+async page => {
+  const results = [];
+  for (const theme of ['light', 'dark']) {
+    await page.emulateMedia({colorScheme: theme});
+    await page.goto('http://127.0.0.1:8770');
+    await page.addScriptTag({path: '/tmp/bergknapp-axe.min.js'});
+    for (const width of [320, 390, 650, 768, 900, 1280, 1440]) {
+      await page.setViewportSize({width, height: 1000});
+      await page.evaluate(() => document.querySelectorAll('img').forEach(img => img.loading = 'eager'));
+      await page.waitForFunction(() => [...document.images].every(img => img.complete && img.naturalWidth > 0));
+      const layout = await page.evaluate(() => ({
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        apps: [...document.querySelectorAll('.app')].map(a => a.href),
+        missingSymbols: [...document.querySelectorAll('use')].filter(u => !document.querySelector(u.getAttribute('href'))).length,
+        clippedPreviews: [...document.querySelectorAll('.app-visual img')].filter(img => {
+          const i = img.getBoundingClientRect(), p = img.closest('.app-visual').getBoundingClientRect();
+          const caption = img.closest('.app-visual').querySelector('figcaption');
+          return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
+        }).map(img => img.src),
+      }));
+      if (layout.overflow || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3) throw new Error(JSON.stringify({theme,width,layout}));
+      results.push({theme,width,layout:'pass'});
+      if ([390,1280].includes(width)) {
+        const audit = await page.evaluate(async () => {
+          const result = await axe.run(document, {runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','best-practice']}});
+          return result.violations.map(v=>({id:v.id,impact:v.impact,targets:v.nodes.map(n=>n.target)}));
+        });
+        results.push({theme,width,axe:audit});
+        if (audit.length) throw new Error(JSON.stringify({theme,width,axe:audit}));
+        await page.screenshot({path:`/tmp/bergknapp-check-${theme}-${width}.png`,fullPage:true});
+      }
+    }
+  }
+  await page.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
+  await page.setViewportSize({width:1280,height:1000});
+  await page.goto('http://127.0.0.1:8770');
+  await page.keyboard.press('Tab');
+  const focus = await page.evaluate(() => ({
+    skip:document.activeElement.matches('.skip'),
+    visible:document.activeElement.getBoundingClientRect().top >= 0,
+    transition:getComputedStyle(document.querySelector('.app')).transitionDuration,
+  }));
+  if (!focus.skip || !focus.visible || focus.transition !== '0s') throw new Error(JSON.stringify(focus));
+  return {results,keyboardAndReducedMotion:focus};
+}
