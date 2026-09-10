@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bergknapp Softworks — Small, fast software for the Mac</title>
+<meta name="description" content="Bergknapp Softworks makes small, fast, offline tools for the Mac: Knap, Spacebar, and Tuck. Bergknapp is Norwegian for stonecrop, the succulent that grows on bare rock.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="256x256" href="/icon-256.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="Bergknapp Softworks">
+<meta property="og:description" content="Small, fast, offline tools for the Mac: Knap, Spacebar, and Tuck.">
+<meta property="og:image" content="https://bergknapp.works/og.png">
+<meta property="og:url" content="https://bergknapp.works/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root {
+  --paper: #ffffff;
+  --paper-alt: #f5f5f7;
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --faint: #d2d2d7;
+  --panel: #ffffff;
+  --panel-border: rgba(0, 0, 0, 0.10);
+  --accent: #0071e3;
+  --leaf: #4f7d5a;
+  --rock: #8e8e93;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #000000;
+    --paper-alt: #161617;
+    --ink: #f5f5f7;
+    --muted: #86868b;
+    --faint: #3a3a3c;
+    --panel: #1d1d1f;
+    --panel-border: rgba(255, 255, 255, 0.14);
+    --accent: #2997ff;
+    --leaf: #7fb08a;
+    --rock: #6e6e73;
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, ui-sans-serif, "Helvetica Neue", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+nav.wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 40px 24px 18px;
+}
+nav svg { width: 30px; height: 30px; }
+nav .name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+nav .links { margin-left: auto; display: flex; gap: 26px; font-size: 14px; }
+nav .links a { color: var(--ink); opacity: 0.75; }
+nav .links a:hover { opacity: 1; text-decoration: none; }
+
+header.wrap { text-align: center; padding: 56px 24px 64px; }
+header .mark { width: 132px; height: 132px; margin: 0 auto 26px; display: block; }
+
+h1 {
+  font-size: clamp(40px, 7vw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+}
+.lede {
+  font-size: clamp(17px, 2.4vw, 20px);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 20px auto 0;
+  letter-spacing: -0.01em;
+}
+.lede strong { color: var(--ink); font-weight: 600; }
+.lede em { font-style: italic; }
+
+.apps { padding: 0 0 72px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.card {
+  display: block;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  box-shadow: var(--shadow);
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+.card:hover { text-decoration: none; transform: translateY(-2px); border-color: var(--accent); }
+.card h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.card .host { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.card p { margin-top: 12px; font-size: 15px; line-height: 1.5; }
+.card .tag { display: inline-block; margin-top: 14px; font-size: 12px; color: var(--muted); border: 1px solid var(--faint); border-radius: 980px; padding: 3px 10px; }
+
+.name-note {
+  background: var(--paper-alt);
+  padding: 44px 0;
+}
+.name-note p { color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 620px; }
+.name-note p + p { margin-top: 10px; }
+.name-note strong { color: var(--ink); font-weight: 600; }
+
+footer { padding: 36px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--panel-border); }
+footer .row { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- a stonecrop rosette in profile, sitting on its rock -->
+    <symbol id="rosette" viewBox="0 0 120 120">
+      <path fill="var(--rock)" d="M10 110C18 94 38 90 60 91C82 90 102 94 110 110Z"/>
+      <g fill="var(--leaf)" stroke="var(--paper)" stroke-width="1.6" stroke-linejoin="round">
+        <path transform="translate(60 90) rotate(-8)" d="M0 0C9 -9.5 27 -9.5 36 0C27 9.5 9 9.5 0 0Z"/>
+        <path transform="translate(60 90) rotate(-172)" d="M0 0C9 -9.5 27 -9.5 36 0C27 9.5 9 9.5 0 0Z"/>
+        <path transform="translate(60 88) rotate(-34)" d="M0 0C8 -9 24 -9 32 0C24 9 8 9 0 0Z"/>
+        <path transform="translate(60 88) rotate(-146)" d="M0 0C8 -9 24 -9 32 0C24 9 8 9 0 0Z"/>
+        <path transform="translate(60 86) rotate(-60)" d="M0 0C7 -8.5 21 -8.5 28 0C21 8.5 7 8.5 0 0Z"/>
+        <path transform="translate(60 86) rotate(-120)" d="M0 0C7 -8.5 21 -8.5 28 0C21 8.5 7 8.5 0 0Z"/>
+        <path transform="translate(60 84) rotate(-90)" d="M0 0C6 -8 17 -8 23 0C17 8 6 8 0 0Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="wrap">
+  <svg aria-hidden="true"><use href="#rosette"/></svg>
+  <span class="name">Bergknapp Softworks</span>
+  <span class="links"><a href="https://github.com/beaugunderson">GitHub</a></span>
+</nav>
+
+<header class="wrap">
+  <svg class="mark" role="img" aria-label="A stonecrop rosette growing on a rock"><use href="#rosette"/></svg>
+  <h1>Small, fast software for the Mac.</h1>
+  <p class="lede">Each of these started as something that bothered me on my own Mac. They are native, offline, and quick, and they leave your files exactly where they were.</p>
+</header>
+
+<section class="apps wrap">
+  <div class="grid">
+    <a class="card" href="https://knap.rocks">
+      <h2>Knap</h2>
+      <div class="host">knap.rocks</div>
+      <p>Find the note before you finish typing. Instant search and editing over a folder of Markdown you already have, beside an Obsidian vault or on its own.</p>
+      <span class="tag">Mac App Store · $9.99 once</span>
+    </a>
+    <a class="card" href="https://spacebar.tools">
+      <h2>Spacebar</h2>
+      <div class="host">spacebar.tools</div>
+      <p>Press Space, see inside any file. Quick Look for zip files and everything in them, GPS rides, databases, data tables, email archives, and more.</p>
+      <span class="tag">macOS Quick Look extensions</span>
+    </a>
+    <a class="card" href="https://tuck.bar">
+      <h2>Tuck</h2>
+      <div class="host">tuck.bar</div>
+      <p>A little less menu bar. A tiny menu bar manager with about 0% idle CPU and no always-on event tap.</p>
+      <span class="tag">Free forever · GPLv3</span>
+    </a>
+  </div>
+</section>
+
+<section class="name-note">
+  <div class="wrap">
+    <p><strong>About the name.</strong> <em>Bergknapp</em> is Norwegian for stonecrop, the sedum that grows on bare rock and turf roofs: literally "rock button". It gets by on almost nothing, and it is the plant on the logo. Say it however you like; in Norway it is <em>BÆRG-knahp</em>, with the k pronounced.</p>
+    <p>Built in Malaga, Washington by <a href="https://beaugunderson.com">Beau Gunderson</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a href="https://beaugunderson.com">beaugunderson.com</a>
+      <a href="https://github.com/beaugunderson">GitHub</a>
+      <a href="mailto:beau@beaugunderson.com">Contact</a>
+    </div>
+    © 2026 Beau Gunderson
+  </div>
+</footer>
+
+</body>
+</html>
