@@ -11,6 +11,8 @@ async page => {
         removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
         noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
         noTopNavigation: !document.querySelector('.masthead nav'),
+        noDividerRules: !document.querySelector('hr') && [...document.querySelectorAll('.masthead,.app,footer')].every(el => ['borderTopWidth','borderBottomWidth'].every(p => parseFloat(getComputedStyle(el)[p]) === 0)),
+        galdraShowsChoices: document.querySelector('.galdra .app-visual img').getAttribute('src').includes('galdra-choices'),
         explanationOnly: !/why bergknapp|BÆRG-knahp|k pronounced|say it however/i.test(text) && document.querySelector('.about-copy').textContent.includes('Bergknapp is Norwegian for stonecrop'),
         oneNameLink: personal.length === 1 && personal[0].textContent === 'Beau Gunderson' && (text.match(/Beau Gunderson/g) || []).length === 1,
         darkBackground: getComputedStyle(document.body).backgroundColor.split(/[^\d]+/).filter(Boolean).slice(0,3).every(v => Number(v) < 50),
@@ -22,8 +24,14 @@ async page => {
       await page.setViewportSize({width, height: 1000});
       await page.evaluate(() => document.querySelectorAll('img').forEach(img => img.loading = 'eager'));
       await page.waitForFunction(() => [...document.images].every(img => img.complete && img.naturalWidth > 0));
+      // A responsive picture may switch sources during resize, cancelling the previous decode.
+      await page.waitForFunction(async () => {
+        try { await Promise.all([...document.images].map(img => img.decode())); return true; }
+        catch { return false; }
+      }, null, {timeout:10000});
       const layout = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth > innerWidth,
+        compactDesktop: innerWidth < 1280 || document.documentElement.scrollHeight <= 1600,
         heroFitsDesktop: innerWidth < 1280 || ['#headline','.intro'].every(selector => {
           const el = document.querySelector(selector);
           return el.getBoundingClientRect().height < parseFloat(getComputedStyle(el).lineHeight) * 1.1;
@@ -38,7 +46,7 @@ async page => {
           return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
         }).map(img => img.src),
       }));
-      if (layout.overflow || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3 || layout.appCount !== 5 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
+      if (layout.overflow || !layout.compactDesktop || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3 || layout.appCount !== 5 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
       results.push({theme,width,layout:'pass'});
       if ([390,1280].includes(width)) {
         const audit = await page.evaluate(async () => {
