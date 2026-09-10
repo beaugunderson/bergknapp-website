@@ -50,7 +50,7 @@ playwright-cli -s=checks run-code --filename=scripts/check-site.js
 playwright-cli -s=checks close
 ```
 
-Checks cover seven viewport widths in light and dark mode, loaded/unclipped previews, app links, SVG references, keyboard focus, reduced motion, and axe accessibility audits at phone and desktop sizes. Review screenshots are written to `/tmp/bergknapp-check-*.png`.
+Checks cover seven viewport widths in light and dark mode, loaded/unclipped previews, app links, SVG references, keyboard focus, reduced motion, and axe accessibility audits at phone and desktop sizes. Review screenshots are written to `/tmp/bergknapp-check-*.png`. For individual card screenshots, scroll the card into view and await its image's `decode()` before capture; otherwise lazy loading can leave a blank preview in the screenshot.
 
 ## Deploy
 
