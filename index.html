@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f6f5f0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#17231f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#13221c" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1914" media="(prefers-color-scheme: dark)">
 <title>Bergknapp Softworks — Small, fast software for the Mac</title>
 <meta name="description" content="Small, fast, offline tools for the Mac, made by Beau Gunderson. Knap for your notes, Spacebar for Quick Look, and Tuck for your menu bar.">
 <link rel="canonical" href="https://bergknapp.works/">
@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=blue-spruce-1">
 <meta property="og:title" content="Bergknapp Softworks">
 <meta property="og:description" content="Small, fast, offline tools for the Mac. Made by Beau Gunderson.">
-<meta property="og:image" content="https://bergknapp.works/og.png?v=blue-spruce-2">
+<meta property="og:image" content="https://bergknapp.works/og.png?v=blue-spruce-3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Bergknapp Softworks. Small, fast software for the Mac, beside a blue-green stonecrop rosette.">
@@ -22,16 +22,16 @@
 <meta name="twitter:card" content="summary_large_image">
 <style>
 :root {
-  color-scheme: light dark;
-  --paper: #f6f5f0;
-  --panel: #ffffff;
-  --ink: #263d35;
-  --muted: #62716a;
-  --line: #d9dfd5;
-  --accent: #326655;
-  --knap-stage: #e8e7df;
-  --spacebar-stage: #e4ede8;
-  --tuck-stage: #e7ede3;
+  color-scheme: dark;
+  --paper: #13221c;
+  --panel: #1c3027;
+  --ink: #edf2e9;
+  --muted: #acbeb0;
+  --line: #344b3d;
+  --accent: #b1d6bb;
+  --knap-stage: #24382e;
+  --spacebar-stage: #294237;
+  --tuck-stage: #273e32;
   --outer-a: #2d5149;
   --outer-b: #3c6256;
   --middle-a: #74a594;
@@ -40,8 +40,8 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #17231f;
-    --panel: #1e2e27;
+    --paper: #0e1914;
+    --panel: #192b23;
     --ink: #ecf0e7;
     --muted: #adbdb1;
     --line: #3b4f42;
@@ -75,14 +75,8 @@ img, svg { display: block; max-width: 100%; }
 h1 { margin: 0; font-size: clamp(42px, 5.2vw, 65px); font-weight: 650; line-height: 1.07; letter-spacing: -.055em; }
 h1 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -.045em; color: var(--accent); }
 .intro { max-width: 540px; font-size: 18px; line-height: 1.6; color: var(--muted); margin: 23px 0 0; letter-spacing: -.012em; }
-.byline { font-size: 12px; color: var(--muted); margin: 21px 0 0; line-height: 1.6; }
-.byline a { text-decoration-color: var(--line); }
-.hero-art { margin: 0; text-align: center; }
+.hero-art { margin: 0; }
 .hero-art svg { width: 236px; height: 236px; margin: 0 auto; }
-.hero-art figcaption { margin-top: 12px; color: var(--muted); font: italic 13px Georgia, "Times New Roman", serif; }
-.section-label { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 0 0 17px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
-.section-label h2 { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.section-label p { font-size: 12px; color: var(--muted); margin: 0; }
 .apps { scroll-margin-top: 24px; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .app { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); color: var(--ink); text-decoration: none; transition: border-color 150ms ease, box-shadow 150ms ease; }
@@ -91,7 +85,7 @@ h1 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter
 .app-info { padding: 30px 32px 28px; display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
 .app-heading { display: flex; align-items: center; gap: 12px; }
 .app-heading img { width: 44px; height: 44px; }
-.app-heading h3 { margin: 0; font-size: 28px; font-weight: 650; letter-spacing: -.04em; }
+.app-heading h2 { margin: 0; font-size: 28px; font-weight: 650; letter-spacing: -.04em; }
 .app-heading .tuck-icon { width: 38px; height: 38px; margin: 3px; border-radius: 10px; }
 .app-line { font-size: 25px; font-weight: 500; letter-spacing: -.035em; line-height: 1.2; margin: 23px 0 0; }
 .app-description { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 13px 0 0; max-width: 420px; }
@@ -121,8 +115,7 @@ h1 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter
 .about-copy strong { color: var(--ink); font-weight: 550; }
 footer { padding: 24px 0 36px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 12px; color: var(--muted); }
 footer p { margin: 0; }
-footer nav { display: flex; flex-wrap: wrap; gap: 22px; }
-footer a { text-decoration: none; padding-block: 10px; }
+footer a { text-decoration-color: var(--line); padding-block: 10px; }
 footer a:hover { text-decoration: underline; }
 @media (max-width: 900px) {
   .wrap { width: calc(100% - 48px); }
@@ -139,13 +132,10 @@ footer a:hover { text-decoration: underline; }
   .brand { font-size: 13px; gap: 6px; }
   .brand svg { width: 30px; height: 30px; }
   .masthead nav { gap: 16px; font-size: 12px; }
-  .masthead .nav-apps { display: none; }
   .hero { display: block; padding: 46px 0 42px; }
   .hero-art { display: none; }
   h1 { font-size: clamp(39px, 8.8vw, 54px); }
   .intro { font-size: 16px; margin-top: 20px; }
-  .byline { margin-top: 17px; }
-  .section-label p { font-size: 11px; }
   .grid { grid-template-columns: 1fr; gap: 20px; }
   .knap { display: flex; }
   .app-info, .knap .app-info { padding: 26px; }
@@ -196,9 +186,7 @@ footer a:hover { text-decoration: underline; }
   <header class="masthead">
     <a class="brand" href="/" aria-label="Bergknapp Softworks home"><svg aria-hidden="true"><use href="#rosette"/></svg><span>Bergknapp Softworks</span></a>
     <nav aria-label="Main navigation">
-      <a class="nav-apps" href="#apps">The apps</a>
       <a href="#about">About</a>
-      <a href="https://github.com/beaugunderson">GitHub <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
   <main id="main">
@@ -206,19 +194,16 @@ footer a:hover { text-decoration: underline; }
       <div>
         <h1 id="headline">Small, fast software<br><em>for the Mac.</em></h1>
         <p class="intro">I make native, offline tools for the things that bother me on my own Mac.</p>
-        <p class="byline">By <a href="https://beaugunderson.com">Beau Gunderson</a> · Malaga, Washington</p>
       </div>
       <figure class="hero-art">
         <svg role="img" aria-label="A blue-green stonecrop rosette seen from above"><use href="#rosette"/></svg>
-        <figcaption>Bergknapp, the little plant behind the name.</figcaption>
       </figure>
     </section>
-    <section class="apps" id="apps" aria-labelledby="apps-title">
-      <div class="section-label"><h2 id="apps-title">The apps</h2><p>Native. Offline. Out of your way.</p></div>
+    <section class="apps" id="apps" aria-label="Apps">
       <div class="grid">
         <a class="app knap" href="https://knap.rocks" aria-labelledby="knap-name knap-visit">
           <div class="app-info">
-            <div class="app-heading"><img src="/assets/knap-icon.png" width="44" height="44" alt=""><h3 id="knap-name">Knap</h3></div>
+            <div class="app-heading"><img src="/assets/knap-icon.png" width="44" height="44" alt=""><h2 id="knap-name">Knap</h2></div>
             <p class="app-line">Find the note before you finish typing.</p>
             <p class="app-description">Instant search and editing over a folder of Markdown. Works beside Obsidian, or on its own.</p>
             <p class="app-meta">Mac App Store · $9.99 once</p>
@@ -233,7 +218,7 @@ footer a:hover { text-decoration: underline; }
         </a>
         <a class="app spacebar" href="https://spacebar.tools" aria-labelledby="spacebar-name spacebar-visit">
           <div class="app-info">
-            <div class="app-heading"><img src="/assets/spacebar-icon.png" width="44" height="44" alt="" loading="lazy"><h3 id="spacebar-name">Spacebar</h3></div>
+            <div class="app-heading"><img src="/assets/spacebar-icon.png" width="44" height="44" alt="" loading="lazy"><h2 id="spacebar-name">Spacebar</h2></div>
             <p class="app-line">Press Space. See inside.</p>
             <p class="app-description">Quick Look for archives, GPS rides, databases, and the files your Mac won’t preview on its own.</p>
             <p class="app-meta">macOS Quick Look extensions</p>
@@ -246,7 +231,7 @@ footer a:hover { text-decoration: underline; }
         </a>
         <a class="app tuck" href="https://tuck.bar" aria-labelledby="tuck-name tuck-visit">
           <div class="app-info">
-            <div class="app-heading"><img class="tuck-icon" src="/assets/tuck-icon.svg" width="38" height="38" alt="" loading="lazy"><h3 id="tuck-name">Tuck</h3></div>
+            <div class="app-heading"><img class="tuck-icon" src="/assets/tuck-icon.svg" width="38" height="38" alt="" loading="lazy"><h2 id="tuck-name">Tuck</h2></div>
             <p class="app-line">A little less menu bar.</p>
             <p class="app-description">Hide the icons you don’t need. Click the chevron when you do. No always-on mouse tracking.</p>
             <p class="app-meta">Free forever · Open source</p>
@@ -265,8 +250,7 @@ footer a:hover { text-decoration: underline; }
     </section>
   </main>
   <footer>
-    <p>© 2026 Beau Gunderson</p>
-    <nav aria-label="Footer navigation"><a href="https://beaugunderson.com">beaugunderson.com</a><a href="https://github.com/beaugunderson">GitHub</a><a href="mailto:beau@beaugunderson.com">Say hello <span aria-hidden="true">↗</span></a></nav>
+    <p>© 2026 <a href="https://beaugunderson.com">Beau Gunderson</a></p>
   </footer>
 </div>
 </body>

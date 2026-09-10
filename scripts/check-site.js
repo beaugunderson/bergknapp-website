@@ -4,6 +4,18 @@ async page => {
     await page.emulateMedia({colorScheme: theme});
     await page.goto('http://127.0.0.1:8770');
     await page.addScriptTag({path: '/tmp/bergknapp-axe.min.js'});
+    const content = await page.evaluate(() => {
+      const text = document.body.innerText;
+      const personal = [...document.querySelectorAll('a[href="https://beaugunderson.com"]')];
+      return {
+        removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
+        noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
+        oneNameLink: personal.length === 1 && personal[0].textContent === 'Beau Gunderson' && (text.match(/Beau Gunderson/g) || []).length === 1,
+        darkBackground: getComputedStyle(document.body).backgroundColor.split(/[^\d]+/).filter(Boolean).slice(0,3).every(v => Number(v) < 50),
+      };
+    });
+    if (Object.values(content).some(v => !v)) throw new Error(JSON.stringify({theme,content}));
+    results.push({theme,content});
     for (const width of [320, 390, 650, 768, 900, 1280, 1440]) {
       await page.setViewportSize({width, height: 1000});
       await page.evaluate(() => document.querySelectorAll('img').forEach(img => img.loading = 'eager'));
