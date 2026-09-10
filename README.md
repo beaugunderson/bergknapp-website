@@ -50,11 +50,18 @@ Checks cover seven viewport widths in light and dark mode, loaded/unclipped prev
 
 ## Deploy
 
-GitHub `main` is connected to Netlify, but the integration currently fails while preparing the repository with **Host key verification failed** (observed September 10, 2026). Direct static deployments work. Until the repository connection is repaired, use:
+Git pushes deploy automatically:
+
+- `main` → production at https://bergknapp.works
+- `design/app-previews` → https://design-app-previews--bergknapp-works.netlify.app (not production)
+
+The connection uses a repository-scoped, **read-only** Netlify deploy key plus the GitHub webhook to `https://api.netlify.com/hooks/github`. Both are required: the hook triggers builds, and the key permits the build worker to clone. The original connection had a working hook but no key or GitHub App installation, causing **Host key verification failed**. Adding the key repaired the connection; Git-backed production and branch builds were verified September 10, 2026.
+
+To make a manual static deploy instead:
 
 ```sh
 bash scripts/deploy.sh                  # draft URL for review
 bash scripts/deploy.sh --prod           # production, after approval
 ```
 
-The script stages only public assets, excluding docs, scripts, and local files. It still uses the project’s `netlify.toml` headers. No DNS changes are needed.
+The manual script stages only public assets, excluding docs, scripts, and local files. Git builds publish the tracked repo root, as configured in `netlify.toml`. Both use the project’s headers. Keep local screenshots and research artifacts outside the repo. No DNS changes are needed.
