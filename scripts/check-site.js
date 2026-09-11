@@ -1,4 +1,6 @@
 async page => {
+  // Routing disables the HTTP cache, including unchanged URLs for updated images.
+  await page.route('**/*', route => route.continue());
   const results = [];
   for (const theme of ['light', 'dark']) {
     await page.emulateMedia({colorScheme: theme});
@@ -8,8 +10,11 @@ async page => {
       const text = document.body.innerText;
       const personal = [...document.querySelectorAll('a[href="https://beaugunderson.com"]')];
       return {
-        removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
-        noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
+        removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|beaugunderson\.com/i.test(text),
+        productGitHubLinksOnly: [...document.querySelectorAll('a[href*="github.com"]')].map(a => a.href).sort().join(',') === 'https://github.com/beaugunderson/obliscence,https://github.com/beaugunderson/tracer',
+        tracerScreenshot: document.querySelector('.tracer .app-visual img')?.getAttribute('src') === '/assets/tracer.webp',
+        obliscenceTextOnly: !document.querySelector('.obliscence .app-visual') && /Claude Code and pi conversations/.test(document.querySelector('.obliscence .app-description')?.textContent),
+        everyAppHasLogomark: [...document.querySelectorAll('.app')].every(card => card.querySelector('.app-heading img[alt=""]')),
         noTopNavigation: !document.querySelector('.masthead nav'),
         noImageCaptions: !document.querySelector('.app-visual figcaption'),
         appBackgrounds: [...document.querySelectorAll('.app')].every(el => {
@@ -36,7 +41,24 @@ async page => {
       }, null, {timeout:10000});
       const layout = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth > innerWidth,
-        compactDesktop: innerWidth < 1280 || document.documentElement.scrollHeight <= 1600,
+        compactDesktop: innerWidth < 1280 || document.documentElement.scrollHeight <= 2300,
+        currentKnapCapture: (() => {
+          const image = document.querySelector('.knap picture img');
+          return image.naturalWidth === (innerWidth <= 650 ? 796 : 1328);
+        })(),
+        tightPreviewSpacing: ['.knap', '.tuck'].every(selector => {
+          const card = document.querySelector(selector), visual = card.querySelector('.app-visual');
+          const image = visual.querySelector('img').getBoundingClientRect();
+          const frame = visual.getBoundingClientRect();
+          const heading = card.querySelector('.app-heading').getBoundingClientRect();
+          return Math.abs(frame.height - image.height) < 1 && heading.top - image.bottom <= 14;
+        }),
+        compactToolCards: ['.tracer', '.obliscence'].every(selector => {
+          const card = document.querySelector(selector), info = card.querySelector('.app-info');
+          const visual = card.querySelector('.app-visual');
+          const padding = parseFloat(getComputedStyle(card).paddingTop) + parseFloat(getComputedStyle(card).paddingBottom);
+          return Math.abs(card.getBoundingClientRect().height - info.getBoundingClientRect().height - (visual?.getBoundingClientRect().height || 0) - padding) < 1;
+        }),
         consistentUpcomingGap: innerWidth <= 1100 || Math.abs(document.querySelector('.narrowcast').getBoundingClientRect().top - document.querySelector('.galdra').getBoundingClientRect().bottom - parseFloat(getComputedStyle(document.querySelector('.grid')).rowGap)) < 1,
         heroFitsDesktop: innerWidth < 1280 || ['#headline','.intro'].every(selector => {
           const el = document.querySelector(selector);
@@ -52,7 +74,7 @@ async page => {
           return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
         }).map(img => img.src),
       }));
-      if (layout.overflow || !layout.consistentUpcomingGap || !layout.compactDesktop || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3 || layout.appCount !== 5 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
+      if (layout.overflow || !layout.consistentUpcomingGap || !layout.compactDesktop || !layout.compactToolCards || !layout.tightPreviewSpacing || !layout.currentKnapCapture || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 5 || layout.appCount !== 7 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
       results.push({theme,width,layout:'pass'});
       if ([390,1280].includes(width)) {
         const audit = await page.evaluate(async () => {

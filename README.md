@@ -1,9 +1,9 @@
 # bergknapp.works
 
-The Bergknapp Softworks site: one static page linking to Knap, Spacebar, and Tuck, with coming-soon entries for Galdra and Narrowcast. No build step; Netlify publishes the repo root.
+The Bergknapp Softworks site: one static page linking to Knap, Spacebar, Tuck, Tracer, and Obliscence, with coming-soon entries for Galdra and Narrowcast. No build step; Netlify publishes the repo root.
 
 - `index.html` — the page, inline palette, and rosette SVG `<symbol>`.
-- `styles.css` — the responsive gallery layout. Subtle spruce backgrounds group each app, without border outlines or horizontal separators. The Galdra grid track is content-sized so Tuck’s spanning card cannot inflate the gap above Narrowcast. Galdra and Narrowcast share the right column beside Tuck on wide screens; smaller screens follow the document order.
+- `styles.css` — the responsive gallery layout. Subtle spruce backgrounds group each app, without border outlines or horizontal separators. The Galdra grid track is content-sized so Tuck’s spanning card cannot inflate the gap above Narrowcast. Galdra and Narrowcast share the right column beside Tuck on wide screens; smaller screens follow the document order. Tracer and Obliscence follow as full-width cards, keeping Tracer’s wide terminal screenshot readable and Obliscence text-only.
 - `favicon.svg` — the same mark with a `prefers-color-scheme` palette swap. Generated from the page by `scripts/sync-logo.py`. `icon-*.png`, `apple-touch-icon.png`, and `favicon.png` are light-palette rasters of it.
 - `og.html` → `og.png` — the 1200×630 social card. Regenerate by serving the folder and screenshotting `og.html` at 1200×630 (`playwright-cli open`, `resize 1200 630`, `screenshot`).
 
@@ -31,12 +31,15 @@ Keep browser screenshots and exploration pages outside the publish root.
 
 `assets/` contains optimized, self-hosted WebP previews and the apps’ existing icons. There are no remote image requests, fonts, analytics, or client-side scripts.
 
-- **Knap:** real app captures from `../knap-website/app-dark.png` and `app-dark-narrow.png`, resized to 1440px and 900px wide. Keep the narrow capture for phones.
+- **Knap:** real app captures from `../knap-website/app-dark.png` and `app-dark-narrow.png`, resized to 1440px and 900px wide, then cropped to remove excess transparent margins while retaining the window and a little shadow. Wide crop: `56,32,1384,908` → 1328×876; narrow crop: `52,28,848,908` → 796×880 (Pillow-style left, top, right, bottom bounds). Keep the narrow capture for phones. Knap’s preview is content-sized with an image-height cap, not a fixed-height empty box.
 - **Spacebar:** a capture of the archive demo’s `.panel` in `../spacebar-website/index.html`, rendered in light mode at 2×. This is website demo artwork, not a native application screenshot; its alt text identifies it as a demo.
-- **Tuck:** a capture of the illustrated `.desktop` demo in `../tuck/site/`, with the tray open. Captured at 720×311 CSS pixels, 2×, with the theme picker hidden. Its alt text identifies it as an illustrated demo. Neither preview has a visible caption.
+- **Tuck:** a capture of the illustrated `.desktop` demo in `../tuck/site/`, with the tray open. Captured at 720×311 CSS pixels, 2×, with the theme picker hidden. Its alt text identifies it as an illustrated demo. Neither preview has a visible caption. Tuck’s preview follows its natural aspect ratio with a 12px gap before the heading; don’t restore a fixed-height preview box.
 - **Galdra:** an actual iPad simulator capture of the main session picker in `../singing-bowls/`. `galdra-choices.webp` crops the title and five complete choices with their descriptions (1668×2420 source; crop `24,80,856,958`, producing 832×878). This replaces the less-informative abstract room view. It is a cropped real screen, not reconstructed UI. Its app icon comes from the iOS asset catalog.
+- **Tracer:** the screenshot from [its README](https://github.com/beaugunderson/tracer), `docs/screenshot.png`, converted without resizing to lossless WebP (3456×984). Refresh with `curl -fLsS https://raw.githubusercontent.com/beaugunderson/tracer/HEAD/docs/screenshot.png -o /tmp/bergknapp-tracer-source.png` and `cwebp -lossless /tmp/bergknapp-tracer-source.png -o assets/tracer.webp`.
+- **Obliscence:** intentionally text-only. Copy explicitly names both Claude Code and pi; the card links to its GitHub repo.
 - **Narrowcast:** app icon from `../podcast-roulette/ios/Narrowcast/Assets.xcassets/`. The coming-soon card describes the taste-based podcast station and offline playback; no download or signup is available here yet.
-- App icons come from the corresponding sites or app asset catalogs. Don’t draw substitute interfaces or expose personal app data in screenshots.
+- **Tool logomarks:** `assets/tracer-icon.svg` (a branching route with network hops) and `assets/obliscence-icon.svg` (overlapping conversations) are the reusable originals, drawn on 64×64 viewboxes in the Blue spruce palette. Both appear at 36px in card headings. Every card has a logomark; a screenshot is optional.
+- Other app icons come from the corresponding sites or app asset catalogs. Don’t draw substitute interfaces or expose personal app data in screenshots.
 
 Galdra main-screen capture: locate its simulator data container, shut the device down, back up `Library/Preferences/com.beaugunderson.galdra.plist`, and set its `onboarded` boolean to true. Boot and launch without `--autoplay`. Restore the original plist with the simulator stopped afterward. Editing that file while simulator `cfprefsd` is running can be ignored; `-onboarded YES` alone did not bypass onboarding in the available build. Main-screen capture needs no motion permission.
 

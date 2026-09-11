@@ -6,13 +6,13 @@
 <meta name="theme-color" content="#13221c" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1914" media="(prefers-color-scheme: dark)">
 <title>Bergknapp Softworks — Small, fast software for the Mac</title>
-<meta name="description" content="Small, fast tools made by Beau Gunderson: Knap, Spacebar, Tuck, and the upcoming Galdra and Narrowcast.">
+<meta name="description" content="Small, fast tools made by Beau Gunderson: Knap, Spacebar, Tuck, Tracer, Obliscence, and the upcoming Galdra and Narrowcast.">
 <link rel="canonical" href="https://bergknapp.works/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=blue-spruce-1">
 <link rel="icon" type="image/png" sizes="256x256" href="/icon-256.png?v=blue-spruce-1">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=blue-spruce-1">
 <meta property="og:title" content="Bergknapp Softworks">
-<meta property="og:description" content="Small, fast, offline tools for the Mac. Made by Beau Gunderson.">
+<meta property="og:description" content="Small, fast tools for the Mac. Made by Beau Gunderson.">
 <meta property="og:image" content="https://bergknapp.works/og.png?v=blue-spruce-4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -86,7 +86,7 @@
     <section class="hero" aria-labelledby="headline">
       <div>
         <h1 id="headline">Small, fast software for the Mac.</h1>
-        <p class="intro">I make native, offline tools for the things that bother me on my own Mac.</p>
+        <p class="intro">I make tools for the things that bother me on my own Mac.</p>
       </div>
       <figure class="hero-art"><svg role="img" aria-label="A blue-green stonecrop rosette seen from above"><use href="#rosette"/></svg></figure>
     </section>
@@ -101,8 +101,8 @@
           </div>
           <figure class="app-visual">
             <picture>
-              <source media="(max-width: 650px)" srcset="/assets/knap-window-narrow.webp" width="900" height="972">
-              <img src="/assets/knap-window.webp" width="1440" height="979" fetchpriority="high" alt="Knap searching for bread, with matching notes beside a Rye bread note and its backlinks.">
+              <source media="(max-width: 650px)" srcset="/assets/knap-window-narrow.webp" width="796" height="880">
+              <img src="/assets/knap-window.webp" width="1328" height="876" fetchpriority="high" alt="Knap searching for bread, with matching notes beside a Rye bread note and its backlinks.">
             </picture>
           </figure>
         </a>
@@ -146,6 +146,25 @@
             <div class="app-footer"><p class="app-meta">Coming soon · iPhone</p></div>
           </div>
         </article>
+        <a class="app tracer" href="https://github.com/beaugunderson/tracer" aria-labelledby="tracer-name tracer-visit">
+          <div class="app-info">
+            <div class="app-heading"><img src="/assets/tracer-icon.svg" width="36" height="36" alt="" loading="lazy"><h2 id="tracer-name">Tracer</h2></div>
+            <p class="app-line">See where your connection slows down.</p>
+            <p class="app-description">Continuous traceroute with per-hop latency sparklines, simultaneous IPv4 and IPv6 paths, and a log of recent outages.</p>
+            <div class="app-footer"><p class="app-meta">Mac &amp; Linux · Homebrew</p><span class="visit" id="tracer-visit"><span>GitHub</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
+          </div>
+          <figure class="app-visual">
+            <img src="/assets/tracer.webp" width="3456" height="984" alt="Tracer monitoring dns.google over IPv4 and IPv6, with per-hop latency sparklines, packet loss, and a recent-outages log." loading="lazy" decoding="async">
+          </figure>
+        </a>
+        <a class="app obliscence" href="https://github.com/beaugunderson/obliscence" aria-labelledby="obliscence-name obliscence-visit">
+          <div class="app-info">
+            <div class="app-heading"><img src="/assets/obliscence-icon.svg" width="36" height="36" alt="" loading="lazy"><h2 id="obliscence-name">Obliscence</h2></div>
+            <p class="app-line">Find that conversation again.</p>
+            <p class="app-description">Archive and search your Claude Code and pi conversations. One local archive for both, with full-text and semantic search.</p>
+            <div class="app-footer"><p class="app-meta">Mac · Homebrew</p><span class="visit" id="obliscence-visit"><span>GitHub</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
+          </div>
+        </a>
       </div>
     </section>
   </main>
