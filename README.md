@@ -3,7 +3,7 @@
 The Bergknapp Softworks site: one static page linking to Knap, Spacebar, and Tuck, with coming-soon entries for Galdra and Narrowcast. No build step; Netlify publishes the repo root.
 
 - `index.html` — the page, inline palette, and rosette SVG `<symbol>`.
-- `styles.css` — the responsive gallery layout. App entries are unboxed; spacing and image placement replace horizontal separators. Galdra and Narrowcast share the right column beside Tuck on wide screens; smaller screens follow the document order.
+- `styles.css` — the responsive gallery layout. Subtle spruce backgrounds group each app, without border outlines or horizontal separators. Galdra and Narrowcast share the right column beside Tuck on wide screens; smaller screens follow the document order.
 - `favicon.svg` — the same mark with a `prefers-color-scheme` palette swap. Generated from the page by `scripts/sync-logo.py`. `icon-*.png`, `apple-touch-icon.png`, and `favicon.png` are light-palette rasters of it.
 - `og.html` → `og.png` — the 1200×630 social card. Regenerate by serving the folder and screenshotting `og.html` at 1200×630 (`playwright-cli open`, `resize 1200 630`, `screenshot`).
 

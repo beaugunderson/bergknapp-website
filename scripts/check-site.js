@@ -11,6 +11,10 @@ async page => {
         removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
         noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
         noTopNavigation: !document.querySelector('.masthead nav'),
+        appBackgrounds: [...document.querySelectorAll('.app')].every(el => {
+          const background = getComputedStyle(el).backgroundColor;
+          return background !== 'rgba(0, 0, 0, 0)' && background !== getComputedStyle(document.body).backgroundColor;
+        }),
         noDividerRules: !document.querySelector('hr') && [...document.querySelectorAll('.masthead,.app,footer')].every(el => ['borderTopWidth','borderBottomWidth'].every(p => parseFloat(getComputedStyle(el)[p]) === 0)),
         galdraShowsChoices: document.querySelector('.galdra .app-visual img').getAttribute('src').includes('galdra-choices'),
         explanationOnly: !/why bergknapp|BÆRG-knahp|k pronounced|say it however/i.test(text) && document.querySelector('.about-copy').textContent.includes('Bergknapp is Norwegian for stonecrop'),
