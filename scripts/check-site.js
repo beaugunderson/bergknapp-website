@@ -33,7 +33,13 @@ async page => {
     for (const width of [320, 390, 650, 768, 900, 1280, 1440]) {
       await page.setViewportSize({width, height: 1000});
       await page.evaluate(() => document.querySelectorAll('img').forEach(img => img.loading = 'eager'));
-      await page.waitForFunction(() => [...document.images].every(img => img.complete && img.naturalWidth > 0));
+      await page.waitForFunction(() => {
+        // A resize can briefly leave the previous picture source complete before
+        // the browser starts loading the source for the new viewport.
+        const knap = document.querySelector('.knap picture img');
+        return knap.naturalWidth === (innerWidth <= 650 ? 796 : 1328) &&
+          [...document.images].every(img => img.complete && img.naturalWidth > 0);
+      });
       // A responsive picture may switch sources during resize, cancelling the previous decode.
       await page.waitForFunction(async () => {
         try { await Promise.all([...document.images].map(img => img.decode())); return true; }
