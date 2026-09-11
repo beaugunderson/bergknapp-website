@@ -9,7 +9,6 @@ Audited September 10, 2026, after adding subtle spruce backgrounds to the compac
 | App titles and taglines | 12.31:1 | 12.89:1 |
 | App descriptions and metadata (lowest text contrast) | 7.16:1 | 7.58:1 |
 | App links | 8.80:1 | 9.36:1 |
-| Preview captions | 7.16:1 | 7.58:1 |
 | Accent / focus indicator against page surfaces (lowest) | 8.80:1 | 9.36:1 |
 
 All measured live text exceeds WCAG AAA's 7:1 normal-text threshold; the AA requirement is 4.5:1, or 3:1 for large text. Focus indicators exceed the 3:1 non-text threshold. Hovered app cards retain their text colors; the footer link becomes the higher-contrast accent color.

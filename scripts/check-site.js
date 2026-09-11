@@ -2,7 +2,7 @@ async page => {
   const results = [];
   for (const theme of ['light', 'dark']) {
     await page.emulateMedia({colorScheme: theme});
-    await page.goto('http://127.0.0.1:8770');
+    await page.goto('http://127.0.0.1:8770/?check=' + Date.now());
     await page.addScriptTag({path: '/tmp/bergknapp-axe.min.js'});
     const content = await page.evaluate(() => {
       const text = document.body.innerText;
@@ -11,6 +11,7 @@ async page => {
         removedCopyAbsent: !/the apps|native\. offline\. out of your way|little plant behind the name|malaga|say hello|github|beaugunderson\.com/i.test(text),
         noGitHubLinks: !document.querySelector('a[href*="github.com"]'),
         noTopNavigation: !document.querySelector('.masthead nav'),
+        noImageCaptions: !document.querySelector('.app-visual figcaption'),
         appBackgrounds: [...document.querySelectorAll('.app')].every(el => {
           const background = getComputedStyle(el).backgroundColor;
           return background !== 'rgba(0, 0, 0, 0)' && background !== getComputedStyle(document.body).backgroundColor;
@@ -36,6 +37,7 @@ async page => {
       const layout = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth > innerWidth,
         compactDesktop: innerWidth < 1280 || document.documentElement.scrollHeight <= 1600,
+        consistentUpcomingGap: innerWidth <= 1100 || Math.abs(document.querySelector('.narrowcast').getBoundingClientRect().top - document.querySelector('.galdra').getBoundingClientRect().bottom - parseFloat(getComputedStyle(document.querySelector('.grid')).rowGap)) < 1,
         heroFitsDesktop: innerWidth < 1280 || ['#headline','.intro'].every(selector => {
           const el = document.querySelector(selector);
           return el.getBoundingClientRect().height < parseFloat(getComputedStyle(el).lineHeight) * 1.1;
@@ -50,7 +52,7 @@ async page => {
           return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
         }).map(img => img.src),
       }));
-      if (layout.overflow || !layout.compactDesktop || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3 || layout.appCount !== 5 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
+      if (layout.overflow || !layout.consistentUpcomingGap || !layout.compactDesktop || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 3 || layout.appCount !== 5 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
       results.push({theme,width,layout:'pass'});
       if ([390,1280].includes(width)) {
         const audit = await page.evaluate(async () => {
@@ -65,7 +67,7 @@ async page => {
   }
   await page.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
   await page.setViewportSize({width:1280,height:1000});
-  await page.goto('http://127.0.0.1:8770');
+  await page.goto('http://127.0.0.1:8770/?check=' + Date.now());
   await page.keyboard.press('Tab');
   const focus = await page.evaluate(() => ({
     skip:document.activeElement.matches('.skip'),

@@ -15,7 +15,7 @@ h1 { margin: 0; font-size: clamp(38px, 4.5vw, 56px); font-weight: 600; line-heig
 .intro { font-size: 18px; line-height: 1.6; color: var(--muted); margin: 16px 0 0; letter-spacing: -.012em; }
 .hero-art { margin: 0; }
 .hero-art svg { width: 136px; height: 136px; }
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto min-content 1fr; gap: 24px; align-items: start; }
 .app { display: flex; flex-direction: column; min-width: 0; padding: 20px; border-radius: 14px; background: var(--panel); color: var(--ink); text-decoration: none; }
 a.app:focus-visible { border-radius: 14px; }
 a.app:hover { color: var(--ink); }
@@ -34,14 +34,11 @@ a.app:hover .visit svg { transform: translate(2px, -2px); }
 a.app:hover .visit span { text-decoration: underline; text-underline-offset: 4px; }
 .app-visual { order: -1; position: relative; margin: 0; height: 320px; display: flex; align-items: center; justify-content: center; }
 .app-visual img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
-.app-visual figcaption { position: absolute; bottom: 0; right: 0; font-size: 10px; line-height: 1.4; color: var(--muted); }
 .knap .app-visual { padding: 0; }
 .knap picture { display: block; width: 100%; height: 100%; }
 .knap picture img { width: 100%; height: 100%; }
-.spacebar .app-visual { padding: 5px 0 24px; }
 .spacebar .app-visual img { border-radius: 10px; }
 .tuck { grid-column: 1; grid-row: 2 / span 2; }
-.tuck .app-visual { padding: 0 0 24px; }
 .tuck .app-visual img { border-radius: 10px; }
 .upcoming .app-meta { color: var(--accent); }
 .galdra { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 20px; align-items: center; }
@@ -60,7 +57,7 @@ footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items:
 .copyright { margin: 0; font-size: 12px; line-height: 1.7; white-space: nowrap; }
 footer a { text-decoration-color: currentColor; padding-block: 10px; }
 @media (max-width: 1100px) {
-  .grid { gap: 24px; }
+  .grid { grid-template-rows: none; gap: 24px; }
   .app-visual { height: 280px; }
   .tuck, .galdra, .narrowcast { grid-row: auto; grid-column: auto; }
   .galdra { display: flex; }
@@ -94,7 +91,6 @@ footer a { text-decoration-color: currentColor; padding-block: 10px; }
   .app-visual img { width: 100%; height: auto; }
   .knap picture { width: 100%; height: auto; max-width: 430px; }
   .knap picture img { width: 100%; height: auto; }
-  .spacebar .app-visual, .tuck .app-visual { padding: 0 0 22px; }
   .app-info, .galdra .app-info { padding: 13px 0 0; }
   .app-heading h2 { font-size: 24px; }
   .app-line { font-size: 18px; }
