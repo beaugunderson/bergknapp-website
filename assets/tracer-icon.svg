@@ -1,9 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>Tracer</title>
-  <rect width="64" height="64" rx="18" fill="#24483f"/>
-  <path d="M14 47 31 30 48 13M31 30l17 17" fill="none" stroke="#94c4ac" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="14" cy="47" r="5" fill="#dbe8c3"/>
-  <circle cx="31" cy="30" r="5" fill="#24483f" stroke="#dbe8c3" stroke-width="3"/>
-  <circle cx="48" cy="13" r="5" fill="#dbe8c3"/>
-  <circle cx="48" cy="47" r="5" fill="#94c4ac"/>
+  <rect width="64" height="64" rx="18" fill="#101217"/>
+  <g fill="none" stroke-width="4" stroke-linecap="round">
+    <path d="m14 47 17-17" stroke="#00b2ff"/>
+    <path d="m31 30 17-17" stroke="#ffd500"/>
+    <path d="m31 30 17 17" stroke="#f54234"/>
+  </g>
+  <circle cx="14" cy="47" r="5" fill="#00b2ff"/>
+  <circle cx="31" cy="30" r="5" fill="#101217" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="48" cy="13" r="5" fill="#ffd500"/>
+  <circle cx="48" cy="47" r="5" fill="#f54234"/>
 </svg>

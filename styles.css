@@ -15,7 +15,8 @@ h1 { margin: 0; font-size: clamp(38px, 4.5vw, 56px); font-weight: 600; line-heig
 .intro { font-size: 18px; line-height: 1.6; color: var(--muted); margin: 16px 0 0; letter-spacing: -.012em; }
 .hero-art { margin: 0; }
 .hero-art svg { width: 136px; height: 136px; }
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto min-content 1fr; gap: 24px; align-items: start; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.app-column { display: flex; flex-direction: column; min-width: 0; gap: 24px; }
 .app { display: flex; flex-direction: column; min-width: 0; padding: 20px; border-radius: 14px; background: var(--panel); color: var(--ink); text-decoration: none; }
 a.app:focus-visible { border-radius: 14px; }
 a.app:hover { color: var(--ink); }
@@ -39,20 +40,17 @@ a.app:hover .visit span { text-decoration: underline; text-underline-offset: 4px
 .knap picture img { width: auto; height: auto; max-height: 320px; }
 .knap .app-info, .tuck .app-info { padding-top: 12px; }
 .spacebar .app-visual img { border-radius: 10px; }
-.tuck { grid-column: 1; grid-row: 2 / span 2; }
 .tuck .app-visual img { width: 100%; height: auto; border-radius: 10px; }
 .upcoming .app-meta { color: var(--accent); }
-.galdra { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 20px; align-items: center; }
+.galdra { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 20px; align-items: center; }
 .galdra .app-info { padding: 0; }
 .galdra .app-line { font-size: 17px; }
 .galdra .app-description { font-size: 13px; }
 .galdra .app-visual { order: 0; height: auto; padding: 0; }
 .galdra .app-visual img { width: 100%; height: auto; border-radius: 10px; }
 .galdra .app-footer { margin-top: 12px; }
-.narrowcast { grid-column: 2; grid-row: 3; }
 .narrowcast .app-info { padding: 0; }
 .narrowcast .app-description { margin-top: 10px; }
-.tracer, .obliscence { grid-column: 1 / -1; }
 .tracer .app-visual { height: auto; }
 .tracer .app-visual img { width: 100%; height: auto; border-radius: 10px; }
 .tracer .app-description, .obliscence .app-description { max-width: 75ch; }
@@ -63,17 +61,14 @@ footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items:
 .copyright { margin: 0; font-size: 12px; line-height: 1.7; white-space: nowrap; }
 footer a { text-decoration-color: currentColor; padding-block: 10px; }
 @media (max-width: 1100px) {
-  .grid { grid-template-rows: none; gap: 24px; }
   .app-visual { height: 280px; }
   .knap picture img { max-height: 280px; }
-  .tuck, .galdra, .narrowcast { grid-row: auto; grid-column: auto; }
   .galdra { display: flex; }
   .galdra .app-info { padding: 17px 2px 0; }
   .galdra .app-visual { order: -1; height: 280px; }
   .galdra .app-visual img { width: auto; height: 100%; }
   .galdra .app-line { font-size: 18px; }
   .galdra .app-description { font-size: 14px; }
-  .narrowcast { grid-column: 1 / -1; }
 }
 @media (max-width: 900px) {
   .wrap { width: calc(100% - 48px); }
@@ -94,6 +89,7 @@ footer a { text-decoration-color: currentColor; padding-block: 10px; }
   h1 { font-size: clamp(36px, 8vw, 44px); }
   .intro { font-size: 16px; margin-top: 14px; }
   .grid { grid-template-columns: 1fr; gap: 20px; }
+  .app-column { gap: 20px; }
   .app { padding: 18px; }
   .app-visual { height: auto; }
   .app-visual img { width: 100%; height: auto; }

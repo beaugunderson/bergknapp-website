@@ -92,6 +92,7 @@
     </section>
     <section class="apps" id="apps" aria-label="Apps">
       <div class="grid">
+        <div class="app-column">
         <a class="app knap" href="https://knap.rocks" aria-labelledby="knap-name knap-visit">
           <div class="app-info">
             <div class="app-heading"><img src="/assets/knap-icon.png" width="36" height="36" alt=""><h2 id="knap-name">Knap</h2></div>
@@ -106,17 +107,6 @@
             </picture>
           </figure>
         </a>
-        <a class="app spacebar" href="https://spacebar.tools" aria-labelledby="spacebar-name spacebar-visit">
-          <div class="app-info">
-            <div class="app-heading"><img src="/assets/spacebar-icon.png" width="36" height="36" alt="" loading="lazy"><h2 id="spacebar-name">Spacebar</h2></div>
-            <p class="app-line">Press Space. See inside.</p>
-            <p class="app-description">Quick Look for archives, GPS rides, databases, and the files your Mac won’t preview on its own.</p>
-            <div class="app-footer"><p class="app-meta">macOS Quick Look extensions</p><span class="visit" id="spacebar-visit"><span>spacebar.tools</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
-          </div>
-          <figure class="app-visual">
-            <img src="/assets/spacebar-demo.webp" width="1280" height="734" alt="Spacebar’s website demo showing a list of files inside a compressed archive." loading="lazy" decoding="async">
-          </figure>
-        </a>
         <a class="app tuck" href="https://tuck.bar" aria-labelledby="tuck-name tuck-visit">
           <div class="app-info">
             <div class="app-heading"><img class="tuck-icon" src="/assets/tuck-icon.svg" width="32" height="32" alt="" loading="lazy"><h2 id="tuck-name">Tuck</h2></div>
@@ -126,6 +116,30 @@
           </div>
           <figure class="app-visual">
             <img src="/assets/tuck-demo.webp" width="1440" height="622" alt="Tuck’s illustrated demo with hidden menu bar icons revealed in a tray beneath the chevron." loading="lazy" decoding="async">
+          </figure>
+        </a>
+        <a class="app tracer" href="https://github.com/beaugunderson/tracer" aria-labelledby="tracer-name tracer-visit">
+          <div class="app-info">
+            <div class="app-heading"><img src="/assets/tracer-icon.svg" width="36" height="36" alt="" loading="lazy"><h2 id="tracer-name">Tracer</h2></div>
+            <p class="app-line">See where your connection slows down.</p>
+            <p class="app-description">Continuous traceroute with per-hop latency sparklines, simultaneous IPv4 and IPv6 paths, and a log of recent outages.</p>
+            <div class="app-footer"><p class="app-meta">Mac &amp; Linux · Homebrew</p><span class="visit" id="tracer-visit"><span>GitHub</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
+          </div>
+          <figure class="app-visual">
+            <img src="/assets/tracer.webp" width="3456" height="982" alt="Tracer monitoring dns.google over IPv4 and IPv6, with per-hop latency sparklines, packet loss, and a recent-outages log." loading="lazy" decoding="async">
+          </figure>
+        </a>
+        </div>
+        <div class="app-column">
+        <a class="app spacebar" href="https://spacebar.tools" aria-labelledby="spacebar-name spacebar-visit">
+          <div class="app-info">
+            <div class="app-heading"><img src="/assets/spacebar-icon.png" width="36" height="36" alt="" loading="lazy"><h2 id="spacebar-name">Spacebar</h2></div>
+            <p class="app-line">Press Space. See inside.</p>
+            <p class="app-description">Quick Look for archives, GPS rides, databases, and the files your Mac won’t preview on its own.</p>
+            <div class="app-footer"><p class="app-meta">macOS Quick Look extensions</p><span class="visit" id="spacebar-visit"><span>spacebar.tools</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
+          </div>
+          <figure class="app-visual">
+            <img src="/assets/spacebar-demo.webp" width="1280" height="734" alt="Spacebar’s website demo showing a list of files inside a compressed archive." loading="lazy" decoding="async">
           </figure>
         </a>
         <article class="app upcoming galdra" aria-labelledby="galdra-name">
@@ -146,17 +160,6 @@
             <div class="app-footer"><p class="app-meta">Coming soon · iPhone</p></div>
           </div>
         </article>
-        <a class="app tracer" href="https://github.com/beaugunderson/tracer" aria-labelledby="tracer-name tracer-visit">
-          <div class="app-info">
-            <div class="app-heading"><img src="/assets/tracer-icon.svg" width="36" height="36" alt="" loading="lazy"><h2 id="tracer-name">Tracer</h2></div>
-            <p class="app-line">See where your connection slows down.</p>
-            <p class="app-description">Continuous traceroute with per-hop latency sparklines, simultaneous IPv4 and IPv6 paths, and a log of recent outages.</p>
-            <div class="app-footer"><p class="app-meta">Mac &amp; Linux · Homebrew</p><span class="visit" id="tracer-visit"><span>GitHub</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
-          </div>
-          <figure class="app-visual">
-            <img src="/assets/tracer.webp" width="3456" height="984" alt="Tracer monitoring dns.google over IPv4 and IPv6, with per-hop latency sparklines, packet loss, and a recent-outages log." loading="lazy" decoding="async">
-          </figure>
-        </a>
         <a class="app obliscence" href="https://github.com/beaugunderson/obliscence" aria-labelledby="obliscence-name obliscence-visit">
           <div class="app-info">
             <div class="app-heading"><img src="/assets/obliscence-icon.svg" width="36" height="36" alt="" loading="lazy"><h2 id="obliscence-name">Obliscence</h2></div>
@@ -165,6 +168,7 @@
             <div class="app-footer"><p class="app-meta">Mac · Homebrew</p><span class="visit" id="obliscence-visit"><span>GitHub</span><svg aria-hidden="true"><use href="#arrow"/></svg></span></div>
           </div>
         </a>
+        </div>
       </div>
     </section>
   </main>

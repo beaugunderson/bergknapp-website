@@ -41,7 +41,7 @@ async page => {
       }, null, {timeout:10000});
       const layout = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth > innerWidth,
-        compactDesktop: innerWidth < 1280 || document.documentElement.scrollHeight <= 2300,
+        compactDesktop: innerWidth < 1280 || document.documentElement.scrollHeight <= 1850,
         currentKnapCapture: (() => {
           const image = document.querySelector('.knap picture img');
           return image.naturalWidth === (innerWidth <= 650 ? 796 : 1328);
@@ -59,7 +59,17 @@ async page => {
           const padding = parseFloat(getComputedStyle(card).paddingTop) + parseFloat(getComputedStyle(card).paddingBottom);
           return Math.abs(card.getBoundingClientRect().height - info.getBoundingClientRect().height - (visual?.getBoundingClientRect().height || 0) - padding) < 1;
         }),
-        consistentUpcomingGap: innerWidth <= 1100 || Math.abs(document.querySelector('.narrowcast').getBoundingClientRect().top - document.querySelector('.galdra').getBoundingClientRect().bottom - parseFloat(getComputedStyle(document.querySelector('.grid')).rowGap)) < 1,
+        consistentColumnGaps: [...document.querySelectorAll('.app-column')].every(column => {
+          const gap = parseFloat(getComputedStyle(column).rowGap);
+          const cards = [...column.querySelectorAll('.app')];
+          return cards.slice(1).every((card, i) => Math.abs(card.getBoundingClientRect().top - cards[i].getBoundingClientRect().bottom - gap) < 1);
+        }),
+        halfWidthCards: [...document.querySelectorAll('.app')].every(card => {
+          const grid = document.querySelector('.grid');
+          const expected = innerWidth <= 650 ? grid.getBoundingClientRect().width : (grid.getBoundingClientRect().width - parseFloat(getComputedStyle(grid).columnGap)) / 2;
+          return Math.abs(card.getBoundingClientRect().width - expected) < 1;
+        }),
+        croppedTracerCapture: document.querySelector('.tracer .app-visual img').naturalHeight === 982,
         heroFitsDesktop: innerWidth < 1280 || ['#headline','.intro'].every(selector => {
           const el = document.querySelector(selector);
           return el.getBoundingClientRect().height < parseFloat(getComputedStyle(el).lineHeight) * 1.1;
@@ -74,7 +84,7 @@ async page => {
           return i.left < p.left - 1 || i.right > p.right + 1 || i.bottom > (caption ? caption.getBoundingClientRect().top - 5 : p.bottom + 1);
         }).map(img => img.src),
       }));
-      if (layout.overflow || !layout.consistentUpcomingGap || !layout.compactDesktop || !layout.compactToolCards || !layout.tightPreviewSpacing || !layout.currentKnapCapture || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 5 || layout.appCount !== 7 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
+      if (layout.overflow || !layout.consistentColumnGaps || !layout.halfWidthCards || !layout.croppedTracerCapture || !layout.compactDesktop || !layout.compactToolCards || !layout.tightPreviewSpacing || !layout.currentKnapCapture || !layout.heroFitsDesktop || layout.clippedPreviews.length || layout.missingSymbols || layout.apps.length !== 5 || layout.appCount !== 7 || layout.upcoming.length !== 2 || layout.upcoming.some(app => !app.comingSoon || !app.nonInteractive)) throw new Error(JSON.stringify({theme,width,layout}));
       results.push({theme,width,layout:'pass'});
       if ([390,1280].includes(width)) {
         const audit = await page.evaluate(async () => {
